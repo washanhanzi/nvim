@@ -2,7 +2,9 @@ if vim.g.vscode then
   require "user.treesitter"
   require "user.comment"
   require "user.surround"
+  require "user.leap"
 else
+  require "user.leap"
   require "user.surround"
   require "user.options"
   require "user.keymaps"
