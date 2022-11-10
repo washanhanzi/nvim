@@ -63,13 +63,16 @@ xnoremap <silent> <C-h> :call VSCodeNotify('workbench.action.navigateLeft')<CR>
 nnoremap <silent> <C-l> :call VSCodeNotify('workbench.action.navigateRight')<CR>
 xnoremap <silent> <C-l> :call VSCodeNotify('workbench.action.navigateRight')<CR>
 
+" navigate buffer
 nnoremap <silent> <S-h> :call VSCodeNotify('workbench.action.previousEditor')<CR>
 nnoremap <silent> <S-l> :call VSCodeNotify('workbench.action.nextEditor')<CR>
+" show hower info
+nnoremap <silent> <S-k> :call VSCodeNotify('editor.action.showHover')<CR>
 
 
 " Bind C-/ to vscode commentary since calling from vscode produces double comments due to multiple cursors
-xnoremap <silent> <C-/> :call Comment()<CR>
-nnoremap <silent> <C-/> :call Comment()<CR>
+" xnoremap <silent> <C-/> :call Comment()<CR>
+" nnoremap <silent> <C-/> :call Comment()<CR>
 
 nnoremap <silent> <C-w>_ :<C-u>call VSCodeNotify('workbench.action.toggleEditorWidths')<CR>
 
