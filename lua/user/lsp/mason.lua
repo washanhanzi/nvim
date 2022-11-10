@@ -5,8 +5,9 @@ local servers = {
 	-- "tsserver",
 	-- "pyright",
 	-- "bashls",
-	-- "jsonls",
-	-- "yamlls",
+	"jsonls",
+	"yamlls",
+	"rust-analyzer",
 }
 
 local settings = {
@@ -45,8 +46,19 @@ for _, server in pairs(servers) do
 
 	local require_ok, conf_opts = pcall(require, "user.lsp.settings." .. server)
 	if require_ok then
-		opts = vim.tbl_deep_extend("force", conf_opts, opts)
-	end
+		if server == "rust-analyzer" then
+			require("rust-tools").setup({
+				tools = conf_opts.tools,
+				server = {
+					on_attach = opts.on_attach,
+					capabilities = opts.capabilities,
+					settings = conf_opts.settings,
+				},
+			})
+			return
+		end
 
-	lspconfig[server].setup(opts)
+		opts = vim.tbl_deep_extend("force", conf_opts, opts)
+		lspconfig[server].setup(opts)
+	end
 end
