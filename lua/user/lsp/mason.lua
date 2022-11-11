@@ -7,7 +7,8 @@ local servers = {
 	-- "bashls",
 	"jsonls",
 	"yamlls",
-	"rust-analyzer",
+	"taplo",
+	"rust_analyzer",
 }
 
 local settings = {
@@ -42,11 +43,14 @@ for _, server in pairs(servers) do
 		capabilities = require("user.lsp.handlers").capabilities,
 	}
 
-	server = vim.split(server, "@")[1]
+	-- idk what is this for
+	-- server = vim.split(server, "@")[1]
 
 	local require_ok, conf_opts = pcall(require, "user.lsp.settings." .. server)
+	-- if config is found in settings folder
 	if require_ok then
-		if server == "rust-analyzer" then
+		-- rust_analyzer specific
+		if server == "rust_analyzer" then
 			require("rust-tools").setup({
 				tools = conf_opts.tools,
 				server = {
@@ -60,5 +64,11 @@ for _, server in pairs(servers) do
 
 		opts = vim.tbl_deep_extend("force", conf_opts, opts)
 		lspconfig[server].setup(opts)
+	else
+		-- if config is not found in settings folder, use default settings
+		lspconfig[server].setup({
+			on_attach = opts.on_attach,
+			capabilities = opts.capabilities,
+		})
 	end
 end
