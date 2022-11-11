@@ -88,6 +88,8 @@ return packer.startup(function(use)
 
 	--debugger
 	use({ "mfussenegger/nvim-dap" })
+	use({ "rcarriga/nvim-dap-ui" })
+	use({ "theHamsta/nvim-dap-virtual-text" })
 
 	-- Rust
 	use({ "simrat39/rust-tools.nvim", commit = "99fd1238c6068d0637df30b6cee9a264334015e9" })

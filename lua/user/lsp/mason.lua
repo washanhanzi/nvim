@@ -58,6 +58,7 @@ for _, server in pairs(servers) do
 					capabilities = opts.capabilities,
 					settings = conf_opts.settings,
 				},
+				dap = conf_opts.dap,
 			})
 			return
 		end

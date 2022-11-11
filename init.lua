@@ -27,4 +27,5 @@ else
   require "user.alpha"
   require "user.whichkey"
   require "user.autocommands"
+  require "user.dap"
 end

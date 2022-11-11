@@ -126,18 +126,17 @@ cmp.setup({
 	},
 	window = {
 		completion = cmp.config.window.bordered(),
-		documentation = cmp.config.window.bordered(),
-		--     {
-		-- 	border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
-		-- 	winhighlight = "NormalFloat:CompeDocumentation,FloatBorder:CompeDocumentationBorder",
-		-- 	max_width = 50,
-		-- 	min_width = 50,
-		-- 	max_height = math.floor(vim.o.lines * 0.4),
-		-- 	min_height = 3,
-		-- },
+		documentation = {
+			border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+			winhighlight = "NormalFloat:CompeDocumentation,FloatBorder:CompeDocumentationBorder",
+			max_width = 50,
+			min_width = 50,
+			max_height = math.floor(vim.o.lines * 0.4),
+			min_height = 3,
+		},
 	},
 	experimental = {
-		ghost_text = true,
+		ghost_text = false,
 		native_menu = false,
 	},
 })
