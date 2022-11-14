@@ -26,7 +26,7 @@ M.setup = function()
 		virtual_text = true, -- disable virtual text
 		signs = {
 			active = signs, -- show signs
-    },
+		},
 		update_in_insert = true,
 		underline = true,
 		severity_sort = true,
@@ -77,6 +77,10 @@ M.on_attach = function(client, bufnr)
 	end
 
 	if client.name == "sumneko_lua" then
+		client.server_capabilities.documentFormattingProvider = false
+	end
+
+	if client.name == "rust_analyzer" then
 		client.server_capabilities.documentFormattingProvider = false
 	end
 
