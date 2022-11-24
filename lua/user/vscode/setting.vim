@@ -25,6 +25,23 @@ function! s:manageEditorSize(...)
     endfor
 endfunction
 
+function! s:commentSelection()
+    normal! gv
+    let visualmode = visualmode()
+    if visualmode == "V"
+        let startLine = line("v")
+        let endLine = line(".")
+        " 最后一个参数 1 表示操作后仍处于选择模式，0 则表示操作后退出选择模式
+        call VSCodeNotifyRange("workbench.action.showCommands", startLine, endLine, 1)
+    else
+        let startPos = getpos("v")
+        let endPos = getpos(".")
+        call VSCodeNotifyRangePos("workbench.action.showCommands", startPos[1], endPos[1], startPos[2], endPos[2], 1)
+    endif
+endfunction
+
+" xnoremap <silent> <C-P> :<C-u>call <SID>openVSCodeCommandsInVisualMode()<CR>
+
 command! -complete=file -nargs=? Split call <SID>split('h', <q-args>)
 command! -complete=file -nargs=? Vsplit call <SID>split('v', <q-args>)
 command! -complete=file -nargs=? New call <SID>split('h', '__vscode_new__')

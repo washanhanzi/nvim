@@ -2,6 +2,7 @@ if vim.g.vscode then
   require "user.comment"
   require "user.surround"
   require "user.leap"
+  require "user.vscode.keymaps"
   vim.cmd([[source $HOME/.config/nvim/lua/user/vscode/setting.vim]])
 else
   require "user.leap"
