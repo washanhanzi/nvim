@@ -1,5 +1,4 @@
 if vim.g.vscode then
-  require "user.comment"
   require "user.surround"
   require "user.leap"
   require "user.vscode.keymaps"

@@ -25,7 +25,8 @@ function! s:manageEditorSize(...)
     endfor
 endfunction
 
-function! s:commentSelection()
+"commandSelection show vscode command with the visual selected content
+function! s:commandSelection()
     normal! gv
     let visualmode = visualmode()
     if visualmode == "V"
@@ -38,6 +39,19 @@ function! s:commentSelection()
         let endPos = getpos(".")
         call VSCodeNotifyRangePos("workbench.action.showCommands", startPos[1], endPos[1], startPos[2], endPos[2], 1)
     endif
+endfunction
+
+function! s:vscodeCommentary(...) abort
+    if !a:0
+        let &operatorfunc = matchstr(expand('<sfile>'), '[^. ]*$')
+        return 'g@'
+    elseif a:0 > 1
+        let [line1, line2] = [a:1, a:2]
+    else
+        let [line1, line2] = [line("'["), line("']")]
+    endif
+
+    call VSCodeCallRange("editor.action.commentLine", line1, line2, 0)
 endfunction
 
 " xnoremap <silent> <C-P> :<C-u>call <SID>openVSCodeCommandsInVisualMode()<CR>
@@ -83,13 +97,17 @@ xnoremap <silent> <C-l> :call VSCodeNotify('workbench.action.navigateRight')<CR>
 " navigate buffer
 nnoremap <silent> <S-h> :call VSCodeNotify('workbench.action.previousEditor')<CR>
 nnoremap <silent> <S-l> :call VSCodeNotify('workbench.action.nextEditor')<CR>
+
 " show hower info
 nnoremap <silent> <S-k> :call VSCodeNotify('editor.action.showHover')<CR>
 
 
+xnoremap <silent> <C-/> :call <SID>commandSelection()<CR>
+nnoremap <silent> <C-/> :call <SID>commandSelection()<CR>
+
 " Bind C-/ to vscode commentary since calling from vscode produces double comments due to multiple cursors
-" xnoremap <silent> <C-/> :call Comment()<CR>
-" nnoremap <silent> <C-/> :call Comment()<CR>
+xnoremap <expr> gc <SID>vscodeCommentary()
+nnoremap <expr> gc <SID>vscodeCommentary() . '_'
 
 nnoremap <silent> <C-w>_ :<C-u>call VSCodeNotify('workbench.action.toggleEditorWidths')<CR>
 
