@@ -7,7 +7,7 @@ local dap_breakpoint = {
 		numhl = "",
 	},
 	rejected = {
-		text = "",
+		text = "🟥",
 		texthl = "LspDiagnosticsSignHint",
 		linehl = "",
 		numhl = "",

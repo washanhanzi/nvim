@@ -3,12 +3,8 @@ if not status_ok then
   return
 end
 
-local config_status_ok, nvim_tree_config = pcall(require, "nvim-tree.config")
-if not config_status_ok then
-  return
-end
+local on_attach = require('user.nvim-tree-on-attach').on_attach
 
-local tree_cb = nvim_tree_config.nvim_tree_callback
 
 nvim_tree.setup {
   update_focused_file = {
@@ -47,7 +43,7 @@ nvim_tree.setup {
     enable = true,
     show_on_dirs = true,
     icons = {
-      hint = "",
+      hint = "",
       info = "",
       warning = "",
       error = "",
@@ -56,15 +52,9 @@ nvim_tree.setup {
   git = {
     enable = true,
   },
+  on_attach = on_attach,
   view = {
     width = 30,
     side = "left",
-    mappings = {
-      list = {
-        { key = { "l", "o" }, cb = tree_cb "edit" },
-        { key = "h", cb = tree_cb "close_node" },
-        { key = "v", cb = tree_cb "vsplit" },
-      },
-    },
   },
 }
