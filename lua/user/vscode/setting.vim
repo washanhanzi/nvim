@@ -1,4 +1,4 @@
-"commandSelection show vscode command with the visual selected content
+" commandSelection show vscode command with the visual selected content
 function! s:vscodeCommentary(...) abort
     if !a:0
         let &operatorfunc = matchstr(expand('<sfile>'), '[^. ]*$')

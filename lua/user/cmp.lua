@@ -10,12 +10,6 @@ end
 
 require("luasnip/loaders/from_vscode").lazy_load()
 
-local check_backspace = function()
-	local col = vim.fn.col(".") - 1
-	return col == 0 or vim.fn.getline("."):sub(col, col):match("%s")
-end
-
--- some other good icons
 -- find more here: https://www.nerdfonts.com/cheat-sheet
 local kind_icons = {
 	Text = "󰉿",
@@ -45,7 +39,6 @@ local kind_icons = {
 	TypeParameter = " ",
 	Misc = " ",
 }
-
 cmp.setup({
 	-- disable completion in comments
 	enabled = function()
@@ -57,8 +50,6 @@ cmp.setup({
 			return not context.in_treesitter_capture("comment") and not context.in_syntax_group("Comment")
 		end
 	end,
-	preselect = true,
-	completion = { completeopt = "menu,menuone,noinsert,noselect" },
 	snippet = {
 		expand = function(args)
 			luasnip.lsp_expand(args.body) -- For `luasnip` users.
@@ -66,14 +57,14 @@ cmp.setup({
 	},
 	mapping = {
 		-- Next item
-		["<Up>"] = cmp.mapping.select_prev_item({ select = false }),
+		["<Up>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
 		-- Prev item
-		["<Down>"] = cmp.mapping.select_next_item({ select = false }),
+		["<Down>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
 		["<C-j>"] = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c" }),
 		["<C-k>"] = cmp.mapping(cmp.mapping.scroll_docs(1), { "i", "c" }),
 		-- Accept currently selected item. If none selected, `select` first item.
 		-- Set `select` to `false` to only confirm explicitly selected items.
-		["<Tab>"] = cmp.mapping.confirm({ select = false, behavior = cmp.ConfirmBehavior.Insert }),
+		["<Tab>"] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Insert }),
 	},
 	formatting = {
 		-- abbr is the content of the suggestion
@@ -104,10 +95,10 @@ cmp.setup({
 		{ name = "path" }, -- file path
 		{ name = "calc" }, --source from math calculation
 	},
-	confirm_opts = {
-		behavior = cmp.ConfirmBehavior.Replace,
-		select = false,
-	},
+	-- confirm_opts = {
+	-- 	behavior = cmp.ConfirmBehavior.Replace,
+	-- 	select = false,
+	-- },
 	window = {
 		completion = cmp.config.window.bordered(),
 		documentation = {
