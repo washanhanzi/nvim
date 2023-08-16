@@ -1,9 +1,9 @@
 local servers = {
   "gopls",
 	"lua_ls",
-	-- "jsonls",
-	-- "yamlls",
-	-- "taplo",
+	"jsonls",
+	"yamlls",
+	"taplo",
 	"rust_analyzer",
 }
 
