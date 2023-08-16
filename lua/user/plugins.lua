@@ -93,7 +93,7 @@ return packer.startup(function(use)
 	use({ "theHamsta/nvim-dap-virtual-text" })
 
 	-- Rust
-	use({ "simrat39/rust-tools.nvim", commit = "99fd1238c6068d0637df30b6cee9a264334015e9" })
+	use({ "simrat39/rust-tools.nvim", branch = "master" })
 
 	-- Telescope
 	use({ "nvim-telescope/telescope.nvim", commit = "76ea9a898d3307244dce3573392dcf2cc38f340f" })
