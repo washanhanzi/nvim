@@ -41,10 +41,10 @@ packer.init({
 -- Install your plugins here
 return packer.startup(function(use)
 	use({ "wbthomason/packer.nvim", branch = "master" }) -- Have packer manage itself
-	use({ "nvim-lua/plenary.nvim", commit = "4b7e52044bbb84242158d977a50c4cbcd85070c7" }) -- Useful lua functions used by lots of plugins
-	use({ "windwp/nvim-autopairs", commit = "4fc96c8f3df89b6d23e5092d31c866c53a346347" }) -- Autopairs, integrates with both cmp and treesitter
-	use({ "numToStr/Comment.nvim", commit = "97a188a98b5a3a6f9b1b850799ac078faa17ab67" })
-	use({ "JoosepAlviste/nvim-ts-context-commentstring", commit = "4d3a68c41a53add8804f471fcc49bb398fe8de08" })
+	use({ "nvim-lua/plenary.nvim", branch = "master" }) -- Useful lua functions used by lots of plugins
+	use({ "windwp/nvim-autopairs", branch = "master" }) -- Autopairs, integrates with both cmp and treesitter
+	use({ "numToStr/Comment.nvim", tag = "v0.8.0" })
+	use({ "JoosepAlviste/nvim-ts-context-commentstring", branch = "main" })
 	-- nvim-tree
 	use({
 		"nvim-tree/nvim-tree.lua",
@@ -96,12 +96,15 @@ return packer.startup(function(use)
 	use({ "simrat39/rust-tools.nvim", branch = "master" })
 
 	-- Telescope
-	use({ "nvim-telescope/telescope.nvim", commit = "76ea9a898d3307244dce3573392dcf2cc38f340f" })
+	use({ "nvim-telescope/telescope.nvim", tag = "0.1.2" })
 
 	-- Treesitter
 	use({
 		"nvim-treesitter/nvim-treesitter",
-		run = "",
+		run = function()
+			local ts_update = require("nvim-treesitter.install").update({ with_sync = true })
+			ts_update()
+		end,
 	})
 
 	-- Surround
