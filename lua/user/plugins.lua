@@ -40,6 +40,8 @@ packer.init({
 
 -- Install your plugins here
 return packer.startup(function(use)
+	use({ "xiyaowong/fast-cursor-move.nvim", branch = "main" })
+
 	use({ "wbthomason/packer.nvim", branch = "master" }) -- Have packer manage itself
 	use({ "nvim-lua/plenary.nvim", branch = "master" }) -- Useful lua functions used by lots of plugins
 	use({ "windwp/nvim-autopairs", branch = "master" }) -- Autopairs, integrates with both cmp and treesitter
@@ -59,7 +61,7 @@ return packer.startup(function(use)
 	use({ "ahmedkhalf/project.nvim", commit = "628de7e433dd503e782831fe150bb750e56e55d6" })
 	use({ "lukas-reineke/indent-blankline.nvim", tag = "v2.20.7" })
 	use({ "goolord/alpha-nvim", commit = "0bb6fc0646bcd1cdb4639737a1cee8d6e08bcc31" })
-	use({ "folke/which-key.nvim" })
+	use({ "folke/which-key.nvim", tag = "v1.6.0" })
 
 	-- Colorschemes
 	use({ "catppuccin/nvim", commit = "e695645298320e9714d10897aadee3cb5951567a" })
@@ -101,6 +103,7 @@ return packer.startup(function(use)
 	-- Treesitter
 	use({
 		"nvim-treesitter/nvim-treesitter",
+		tag = "v0.9.2",
 		run = function()
 			local ts_update = require("nvim-treesitter.install").update({ with_sync = true })
 			ts_update()

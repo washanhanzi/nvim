@@ -5,10 +5,11 @@ end
 
 configs.setup({
 	ensure_installed = "all",
-	ignore_install = { "php", "phpdoc", "elixir", "erlang" }, -- List of parsers to ignore installing
+	ignore_install = { "php", "phpdoc" }, -- List of parsers to ignore installing
 	highlight = {
 		enable = true, -- false will disable the whole extension
-		disable = { "css" }, -- list of language that will be disabled
+		-- list of language that will be disabled
+		disable = { "css", "lua", "rust" },
 	},
 	autopairs = {
 		enable = true,

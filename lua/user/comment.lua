@@ -7,6 +7,10 @@ comment.setup({
 	pre_hook = function(ctx)
 		local U = require("Comment.utils")
 
+		require("ts_context_commentstring").setup({
+			enable_autocmd = false,
+		})
+
 		local status_utils_ok, utils = pcall(require, "ts_context_commentstring.utils")
 		if not status_utils_ok then
 			return
@@ -30,3 +34,5 @@ comment.setup({
 		})
 	end,
 })
+
+vim.g.skip_ts_context_commentstring_module = true
