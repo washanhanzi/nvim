@@ -21,8 +21,10 @@ xnoremap gc <Cmd>call VSCodeCall('editor.action.commentLine')<CR>
 " go to implementation
 nnoremap gI <Cmd>:call VSCodeNotify('editor.action.goToImplementation')<CR>
 
-nnoremap <silent> <Space> :call VSCodeNotify('whichkey.show')<CR>
-xnoremap <silent> <Space> :call VSCodeNotify('whichkey.show')<CR>
+" nnoremap <silent> <Space> :call VSCodeNotify('whichkey.show')<CR>
+" xnoremap <silent> <Space> :call VSCodeNotify('whichkey.show')<CR>
+
+set clipboard=unnamedplus
 
 " ignore case
 :set ignorecase smartcase

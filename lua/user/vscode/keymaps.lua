@@ -4,7 +4,7 @@ local opts = { noremap = true, silent = true }
 local keymap = vim.api.nvim_set_keymap
 
 -- ctrl+y to copy to system clipboard
-keymap("v", "<C-y>", '"+y', opts)
+-- keymap("v", "<C-y>", '"+y', opts)
 
 -- ctrl+shift+y to copy the whole file to system clipboard
-keymap("n", "<C-S-y>", 'gg"+yG', opts)
+-- keymap("n", "<C-S-y>", 'gg"+yG', opts)
