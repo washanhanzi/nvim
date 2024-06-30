@@ -15,7 +15,8 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
   spec = {
     -- import your plugins
-    { import = "plugins" },
+    { import = "plugins",             cond = (function() return not vim.g.vscode end) },
+    { import = "user.vscode.plugins", cond = (function() return vim.g.vscode end) },
   },
   -- Configure any other settings here. See the documentation for more details.
   -- colorscheme that will be used when installing plugins.
