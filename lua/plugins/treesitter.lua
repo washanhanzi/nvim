@@ -1,11 +1,16 @@
 return {
 	"nvim-treesitter/nvim-treesitter",
+	branch = "master",
+	lazy = false,
 	build = ":TSUpdate",
 	config = function()
 		local configs = require("nvim-treesitter.configs")
 
 		configs.setup({
-			ensure_installed = "all",
+			modules = {},
+			sync_install = false,
+			auto_install = true,
+			ensure_installed = { "lua", "vim", "markdown", "markdown_inline" },
 			ignore_install = { "php", "phpdoc" }, -- List of parsers to ignore installing
 			highlight = {
 				enable = true,           -- false will disable the whole extension

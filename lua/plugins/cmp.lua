@@ -267,11 +267,5 @@ return {
 		ft = { 'gitcommit', 'gitrebase', 'octo' },
 		dependencies = { 'nvim-lua/plenary.nvim' },
 		config = function() require('cmp_git').setup() end,
-	},
-	{
-		'saecki/crates.nvim',
-		event = 'BufRead Cargo.toml',
-		dependencies = { 'nvim-lua/plenary.nvim' },
-		config = function() require('crates').setup() end,
-	},
+	}
 }

@@ -1,3 +1,20 @@
+local function my_on_attach(bufnr)
+	local api = require "nvim-tree.api"
+
+	local function opts(desc)
+		return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+	end
+
+	-- default mappings
+	api.config.mappings.default_on_attach(bufnr)
+
+	-- custom mappings
+	vim.keymap.set('n', 'x', api.fs.cut, opts('Cut'))
+	vim.keymap.set('n', 'y', api.fs.copy.filename, opts('Copy Name'))
+	vim.keymap.set('n', 'l', api.node.open.edit, opts('Open'))
+	vim.keymap.set('n', 'h', api.node.navigate.parent_close, opts('Close Directory'))
+end
+
 return {
 	"nvim-tree/nvim-tree.lua",
 	version = "*",
@@ -6,7 +23,6 @@ return {
 		"nvim-tree/nvim-web-devicons",
 	},
 	config = function()
-		local on_attach = require("user.nvim-tree-on-attach").on_attach
 		require("nvim-tree").setup({
 			update_focused_file = {
 				enable = true,
@@ -53,7 +69,7 @@ return {
 			git = {
 				enable = true,
 			},
-			on_attach = on_attach,
+			on_attach = my_on_attach,
 			view = {
 				width = 30,
 				side = "left",
