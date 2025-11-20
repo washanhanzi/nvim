@@ -6,10 +6,8 @@ return {
 		vim.o.timeoutlen = 200
 	end,
 	opts = {
-		mode = { n = true }, -- NORMAL mode
-		prefix = "<leader>",
-		delay = 200,
 		preset = "modern",
+		delay = 200,
 		-- your configuration comes here
 		-- or leave it empty to use the default settings
 		-- refer to the configuration section below
@@ -20,28 +18,16 @@ return {
 				enabled = true, -- enabling this will show WhichKey when pressing z= to select spelling suggestions
 				suggestions = 20, -- how many suggestions should be shown in the list?
 			},
-			-- the presets plugin, adds help for a bunch of default keybindings in Neovim
-			-- No actual key bindings are created
-			-- presets = {
-			-- 	operators = false, -- adds help for operators like d, y, ... and registers them for motion / text object completion
-			-- 	motions = true, -- adds help for motions
-			-- 	text_objects = true, -- help for text objects triggered after entering an operator
-			-- 	windows = true, -- default bindings on <c-w>
-			-- 	nav = true, -- misc bindings to work with windows
-			-- 	z = true, -- bindings for folds, spelling and others prefixed with z
-			-- 	g = true, -- bindings for prefixed with g
-			-- },
 		},
-		-- add operators that will trigger motion and text object completion
-		-- to enable all native operators, set the preset / operators plugin above
-		-- operators = { gc = "Comments" },
 		icons = {
 			breadcrumb = "»", -- symbol used in the command line area that shows your active key combo
 			separator = "➜", -- symbol used between a key and it's label
 			group = "+", -- symbol prepended to a group
 		},
 		show_help = true, -- show help message on the command line when the popup is visible
-		triggers = "auto", -- automatically setup triggers
+		triggers = {
+			{ "<auto>", mode = "nxso" }, -- automatically setup triggers for normal, visual, select, and operator-pending modes
+		},
 	},
 	-- config = function()
 	-- 	local opts = {
@@ -159,5 +145,28 @@ return {
 		{ "<leader>e",  "<cmd>NvimTreeToggle<cr>",                desc = "Explorer" },
 		{ "<leader>l",  group = "lsp" }, -- group
 		{ "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<cr>", desc = "Code Action", nowait = true, remap = false },
+		{
+			"<leader>t",
+			function()
+				-- 1. Get full path of current buffer
+				local bufname = vim.api.nvim_buf_get_name(0)
+
+				-- 2. Safety Check: If no file is open, just toggle default term
+				if bufname == "" then
+					require("toggleterm").toggle(nil, nil, nil, "float")
+					return
+				end
+
+				-- 3. The "Secret Sauce": Resolve the symlink to find the REAL directory
+				--    This turns "/tmp/paru/PKGBUILD" -> "/home/user/.cache/paru/clone/pkg/PKGBUILD"
+				local real_file = vim.fn.resolve(bufname)
+				local real_dir = vim.fn.fnamemodify(real_file, ":p:h")
+
+				-- 4. Open terminal in that real directory so 'updpkgsums' sees all files
+				require("toggleterm").toggle(nil, nil, real_dir, "float")
+			end,
+			desc = "Term (Smart Resolve)",
+			mode = "n",
+		}
 	},
 }
